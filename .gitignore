@@ -1,0 +1,17 @@
+# Scons
+.sconf_temp
+.sconsign.dblite
+config.log
+
+# Build byproducts
+/build
+/dist
+/package*.txt
+/fah-installer*.pkg
+/fah-installer*.zip
+
+# Backup files
+*~
+
+# generic files to ignore
+.DS_Store
