@@ -56,7 +56,7 @@ if not version:
 # Config vars; lifted from fah-client-bastet
 env.Replace(PACKAGE_VERSION   = version)
 env.Replace(PACKAGE_AUTHOR = 'Joseph Coffland <joseph@cauldrondevelopment.com>')
-env.Replace(PACKAGE_COPYRIGHT = '2021 foldingathome.org')
+env.Replace(PACKAGE_COPYRIGHT = '2022 foldingathome.org')
 env.Replace(PACKAGE_HOMEPAGE  = 'https://foldingathome.org/')
 env.Replace(PACKAGE_ORG       = 'foldingathome.org')
 
