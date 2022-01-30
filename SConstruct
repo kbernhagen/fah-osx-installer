@@ -128,7 +128,7 @@ parameters = {
     'distpkg_license'    : 'License.rtf',
     'distpkg_background' : 'fah-opacity-50.png',
     'distpkg_customize'  : 'always',
-    'distpkg_target'     : env.get('osx_min_ver', '10.7'),
+    'distpkg_target'     : env.get('osx_min_ver', '10.13'),
     'distpkg_arch'       : env.get('package_arch', 'x86_64'),
     'distpkg_components' : distpkg_components,
     }
