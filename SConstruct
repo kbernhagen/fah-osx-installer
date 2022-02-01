@@ -109,6 +109,12 @@ distpkg_components = [
     },
 ]
 
+# min pkg target macos 10.13
+distpkg_target = env.get('osx_min_ver', '10.13')
+ver = tuple([int(x) for x in distpkg_target.split('.')])
+if ver < (10,13):
+    distpkg_target = '10.13'
+
 # Package
 name = 'fah-installer'
 parameters = {
@@ -128,7 +134,7 @@ parameters = {
     'distpkg_license'    : 'License.rtf',
     'distpkg_background' : 'fah-opacity-50.png',
     'distpkg_customize'  : 'always',
-    'distpkg_target'     : env.get('osx_min_ver', '10.13'),
+    'distpkg_target'     : distpkg_target,
     'distpkg_arch'       : env.get('package_arch', 'x86_64'),
     'distpkg_components' : distpkg_components,
     }
