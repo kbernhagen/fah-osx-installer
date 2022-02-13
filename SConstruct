@@ -64,7 +64,7 @@ env.Append(PACKAGE_IGNORES = ['.DS_Store'])
 
 # Set up Uninstaller component that installs the actual uninstaller pkg
 un_home = os.environ.get('FAH_CLIENT_OSX_UNINSTALLER_HOME')
-un_root = './dist/flatpkg/Uninstaller/root' # note: relative to PWD
+un_root = './build/pkgroots/Uninstaller/root' # note: relative to PWD
 un_pkg_name_file = os.path.join(un_home, 'package.txt')
 if not env.GetOption('clean'):
     # un_pkg_name_file may not exist during a clean
