@@ -98,6 +98,10 @@ distpkg_components = [
         'root'        : client_home + '/build/pkg/root',
         # relative to root
         'sign_tools'  : ['usr/local/bin/fah-client'],
+        'must_close_apps': [
+            'org.foldingathome.fahviewer', 'org.foldingathome.fahcontrol',
+            'edu.stanford.folding.fahviewer','edu.stanford.folding.fahcontrol',
+            ],
     },
     {
         'name'        : 'Uninstaller',
