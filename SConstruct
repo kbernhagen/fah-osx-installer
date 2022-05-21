@@ -43,7 +43,7 @@ path = client_home + '/package.json'
 try:
     with open(path, 'r') as f:
         package_info = json.load(f)
-    version = package_info['version'].encode('ascii')
+    version = package_info['version']
 except Exception as e:
     eprint(e)
 if not version:
