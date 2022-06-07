@@ -68,8 +68,11 @@ if not env.GetOption('clean'):
     un_pkg_name = open(un_pkg_name_file).read().strip()
 else:
     un_pkg_name = ''
-# replace assumed '.mpkg.zip' with '.pkg'; it should exist
-un_pkg_name = os.path.splitext(os.path.splitext(un_pkg_name)[0])[0] + '.pkg'
+# replace '.mpkg.zip' with '.pkg', which should exist
+if un_pkg_name.endswith('.zip'):
+    un_pkg_name = os.path.splitext(un_pkg_name)[0]
+if un_pkg_name.endswith('.mpkg'):
+    un_pkg_name = os.path.splitext(un_pkg_name)[0] + '.pkg'
 un_pkg_files = [[os.path.join(un_home, un_pkg_name),
             'Applications/Folding@home/Uninstall Folding@home.pkg']]
 
@@ -152,6 +155,5 @@ if 'distclean' in COMMAND_LINE_TARGETS:
         '.sconsign.dblite', '.sconf_temp', 'config.log',
         'build', 'dist', 'package.txt', 'package-description.txt',
         Glob(name + '*.pkg'),
-        Glob(name + '*.mpkg'),
         Glob(name + '*.zip'),
         ])
