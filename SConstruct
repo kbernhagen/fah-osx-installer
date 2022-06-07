@@ -1,4 +1,3 @@
-from __future__ import print_function
 import os
 import sys
 import json
@@ -59,8 +58,6 @@ env.Replace(PACKAGE_AUTHOR = 'Joseph Coffland <joseph@cauldrondevelopment.com>')
 env.Replace(PACKAGE_COPYRIGHT = '2022 foldingathome.org')
 env.Replace(PACKAGE_HOMEPAGE  = 'https://foldingathome.org/')
 env.Replace(PACKAGE_ORG       = 'foldingathome.org')
-
-env.Append(PACKAGE_IGNORES = ['.DS_Store'])
 
 # Set up Uninstaller component that installs the actual uninstaller pkg
 un_home = os.environ.get('FAH_CLIENT_OSX_UNINSTALLER_HOME')
