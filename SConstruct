@@ -59,6 +59,8 @@ env.Replace(PACKAGE_COPYRIGHT = '2022 foldingathome.org')
 env.Replace(PACKAGE_HOMEPAGE  = 'https://foldingathome.org/')
 env.Replace(PACKAGE_ORG       = 'foldingathome.org')
 
+conf.Finish()
+
 # Set up Uninstaller component that installs the actual uninstaller pkg
 un_home = os.environ.get('FAH_CLIENT_OSX_UNINSTALLER_HOME')
 un_root = './build/pkgroots/Uninstaller/root' # note: relative to PWD
@@ -142,18 +144,17 @@ parameters = {
     'distpkg_arch'       : env.get('package_arch', 'x86_64'),
     'distpkg_components' : distpkg_components,
     }
-pkg = env.Packager(**parameters)
 
-AlwaysBuild(pkg)
-env.Alias('package', pkg)
+if 'package' in COMMAND_LINE_TARGETS:
+    pkg = env.Packager(**parameters)
+    AlwaysBuild(pkg)
+    env.Alias('package', pkg)
+    Clean(pkg, ['build', 'config.log'])
+    NoClean(pkg, [Glob(name + '*.pkg'), 'package.txt'])
 
-Clean(pkg, ['build', 'dist', 'config.log'])
-# ensure *.zip not cleaned unless distclean
-NoClean(pkg, [Glob('*.zip'), 'package.txt'])
 if 'distclean' in COMMAND_LINE_TARGETS:
     Clean('distclean', [
         '.sconsign.dblite', '.sconf_temp', 'config.log',
-        'build', 'dist', 'package.txt', 'package-description.txt',
+        'build', 'package.txt', 'package-description.txt',
         Glob(name + '*.pkg'),
-        Glob(name + '*.zip'),
         ])
