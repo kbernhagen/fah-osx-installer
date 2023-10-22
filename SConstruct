@@ -55,7 +55,7 @@ if not version:
 # Config vars; lifted from fah-client-bastet
 env.Replace(PACKAGE_VERSION   = version)
 env.Replace(PACKAGE_AUTHOR = 'Joseph Coffland <joseph@cauldrondevelopment.com>')
-env.Replace(PACKAGE_COPYRIGHT = '2022 foldingathome.org')
+env.Replace(PACKAGE_COPYRIGHT = '2023 foldingathome.org')
 env.Replace(PACKAGE_HOMEPAGE  = 'https://foldingathome.org/')
 env.Replace(PACKAGE_ORG       = 'foldingathome.org')
 
@@ -86,7 +86,7 @@ if not env.GetOption('clean'):
     env.CopyToPackage(un_pkg_files, un_root)
 
 # Specify components for the distribution pkg
-distpkg_components = [
+pkg_components = [
     {
         # name is component pkg file name and name shown to user in installer
         'name'        : 'FAHClient',
@@ -116,10 +116,10 @@ distpkg_components = [
 ]
 
 # min pkg target macos 10.13
-distpkg_target = env.get('osx_min_ver', '10.13')
-ver = tuple([int(x) for x in distpkg_target.split('.')])
+pkg_target = env.get('osx_min_ver', '10.13')
+ver = tuple([int(x) for x in pkg_target.split('.')])
 if ver < (10,13):
-    distpkg_target = '10.13'
+    pkg_target = '10.13'
 
 # Package
 name = 'fah-installer'
@@ -135,26 +135,23 @@ parameters = {
     'bug_url'            : 'https://github.com/FoldingAtHome/fah-issues',
 
     'pkg_type'           : 'dist',
-    'distpkg_resources'  : [['install/osx/Resources', '.']],
-    'distpkg_welcome'    : 'Welcome.rtf',
-    'distpkg_license'    : 'License.rtf',
-    'distpkg_background' : 'fah-opacity-50.png',
-    'distpkg_customize'  : 'always',
-    'distpkg_target'     : distpkg_target,
-    'distpkg_arch'       : env.get('package_arch', 'x86_64'),
-    'distpkg_components' : distpkg_components,
+    'pkg_resources'      : [['install/osx/Resources', '.']],
+    'pkg_welcome'        : 'Welcome.rtf',
+    'pkg_license'        : 'License.rtf',
+    'pkg_background'     : 'fah-opacity-50.png',
+    'pkg_customize'      : 'always',
+    'pkg_target'         : pkg_target,
+    'pkg_components'     : pkg_components,
     }
 
 if 'package' in COMMAND_LINE_TARGETS:
     pkg = env.Packager(**parameters)
     AlwaysBuild(pkg)
     env.Alias('package', pkg)
-    Clean(pkg, ['build', 'config.log'])
-    NoClean(pkg, [Glob(name + '*.pkg'), 'package.txt'])
+    Clean(pkg, ['build', 'config.log', 'package.txt'])
 
 if 'distclean' in COMMAND_LINE_TARGETS:
     Clean('distclean', [
         '.sconsign.dblite', '.sconf_temp', 'config.log',
-        'build', 'package.txt', 'package-description.txt',
-        Glob(name + '*.pkg'),
+        'build', 'package.txt', Glob(name + '*.pkg'),
         ])
